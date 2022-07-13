@@ -75,3 +75,7 @@ fabric.properties
 
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
+/webapp/amplify/backend/function/rekogdemocustomauthCreateAuthChallenge/src/package-lock.json
+/webapp/amplify/backend/function/rekogdemocustomauthDefineAuthChallenge/src/package-lock.json
+/webapp/amplify/backend/function/rekogdemocustomauthPostConfirmation/src/package-lock.json
+/webapp/amplify/backend/function/rekogdemocustomauthVerifyAuthChallengeResponse/src/package-lock.json
