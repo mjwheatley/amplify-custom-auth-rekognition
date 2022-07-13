@@ -17,10 +17,26 @@
         "rekogdemocustomauth": {}
       },
       "function": {
-        "rekogdemocustomauthCreateAuthChallenge": {},
-        "rekogdemocustomauthDefineAuthChallenge": {},
-        "rekogdemocustomauthPostConfirmation": {},
-        "rekogdemocustomauthVerifyAuthChallengeResponse": {}
+        "rekogdemocustomauthCreateAuthChallenge": {
+          "deploymentBucketName": "amplify-rekogdemo-dev-130330-deployment",
+          "s3Key": "amplify-builds/rekogdemocustomauthCreateAuthChallenge-31416c54616b6c367739-build.zip"
+        },
+        "rekogdemocustomauthDefineAuthChallenge": {
+          "deploymentBucketName": "amplify-rekogdemo-dev-130330-deployment",
+          "s3Key": "amplify-builds/rekogdemocustomauthDefineAuthChallenge-79616c5271727a6d6251-build.zip"
+        },
+        "rekogdemocustomauthPostConfirmation": {
+          "deploymentBucketName": "amplify-rekogdemo-dev-130330-deployment",
+          "s3Key": "amplify-builds/rekogdemocustomauthPostConfirmation-44615775615442393865-build.zip"
+        },
+        "rekogdemocustomauthVerifyAuthChallengeResponse": {
+          "deploymentBucketName": "amplify-rekogdemo-dev-130330-deployment",
+          "s3Key": "amplify-builds/rekogdemocustomauthVerifyAuthChallengeResponse-5539394768624d794230-build.zip"
+        },
+        "AdminQueries24a5c4f0": {
+          "deploymentBucketName": "amplify-rekogdemo-dev-130330-deployment",
+          "s3Key": "amplify-builds/AdminQueries24a5c4f0-4c425336787a5a447967-build.zip"
+        }
       }
     }
   }
