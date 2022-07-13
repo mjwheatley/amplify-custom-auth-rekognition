@@ -1,0 +1,17 @@
+{
+  "trigger": true,
+  "modules": [
+    "boilerplate-verify"
+  ],
+  "parentResource": "rekogdemocustomauth",
+  "functionName": "rekogdemocustomauthVerifyAuthChallengeResponse",
+  "resourceName": "rekogdemocustomauthVerifyAuthChallengeResponse",
+  "parentStack": "auth",
+  "triggerEnvs": [],
+  "triggerDir": "/snapshot/node_modules/@aws-amplify/amplify-category-auth/provider-utils/awscloudformation/triggers/VerifyAuthChallengeResponse",
+  "triggerTemplate": "VerifyAuthChallengeResponse.json.ejs",
+  "triggerEventPath": "VerifyAuthChallengeResponse.event.json",
+  "roleName": "rekogdemocustomauthVerifyAuthChallengeResponse",
+  "skipEdit": true,
+  "enableCors": false
+}
