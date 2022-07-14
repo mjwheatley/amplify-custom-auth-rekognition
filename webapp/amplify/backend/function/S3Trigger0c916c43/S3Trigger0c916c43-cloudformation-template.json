@@ -1,19 +1,27 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "Lambda resource stack creation using Amplify CLI",
+  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"7.6.20\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
   "Parameters": {
     "env": {
       "Type": "String"
-    },
-    "authrekogdemocustomauthUserPoolId": {
-      "Type": "String",
-      "Default": "authrekogdemocustomauthUserPoolId"
     },
     "deploymentBucketName": {
       "Type": "String"
     },
     "s3Key": {
       "Type": "String"
+    },
+    "apirekogdemoGraphQLGraphQLAPIIdOutput": {
+      "Type": "String",
+      "Default": "apirekogdemoGraphQLGraphQLAPIIdOutput"
+    },
+    "apirekogdemoGraphQLGraphQLAPIEndpointOutput": {
+      "Type": "String",
+      "Default": "apirekogdemoGraphQLGraphQLAPIEndpointOutput"
+    },
+    "apirekogdemoGraphQLGraphQLAPIKeyOutput": {
+      "Type": "String",
+      "Default": "apirekogdemoGraphQLGraphQLAPIKeyOutput"
     }
   },
   "Conditions": {
@@ -38,12 +46,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "AdminQueries24a5c4f0",
+            "S3Trigger0c916c43",
             {
               "Fn::Join": [
                 "",
                 [
-                  "AdminQueries24a5c4f0",
+                  "S3Trigger0c916c43",
                   "-",
                   {
                     "Ref": "env"
@@ -58,9 +66,17 @@
             "ENV": {
               "Ref": "env"
             },
-            "GROUP": "admin",
-            "USERPOOL": {
-              "Ref": "authrekogdemocustomauthUserPoolId"
+            "REGION": {
+              "Ref": "AWS::Region"
+            },
+            "API_REKOGDEMOGRAPHQL_GRAPHQLAPIIDOUTPUT": {
+              "Ref": "apirekogdemoGraphQLGraphQLAPIIdOutput"
+            },
+            "API_REKOGDEMOGRAPHQL_GRAPHQLAPIENDPOINTOUTPUT": {
+              "Ref": "apirekogdemoGraphQLGraphQLAPIEndpointOutput"
+            },
+            "API_REKOGDEMOGRAPHQL_GRAPHQLAPIKEYOUTPUT": {
+              "Ref": "apirekogdemoGraphQLGraphQLAPIKeyOutput"
             }
           }
         },
@@ -88,12 +104,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "AdminQueries24a5c4f0LambdaRole",
+            "S3Trigger0c916c43LambdaRole0c916c43",
             {
               "Fn::Join": [
                 "",
                 [
-                  "AdminQueries24a5c4f0LambdaRole",
+                  "S3Trigger0c916c43LambdaRole0c916c43",
                   "-",
                   {
                     "Ref": "env"
@@ -159,41 +175,53 @@
                   }
                 ]
               }
-            },
+            }
+          ]
+        }
+      }
+    },
+    "AmplifyResourcesPolicy": {
+      "DependsOn": [
+        "LambdaExecutionRole"
+      ],
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "amplify-lambda-execution-policy",
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
             {
               "Effect": "Allow",
               "Action": [
-                "cognito-idp:ListUsersInGroup",
-                "cognito-idp:AdminUserGlobalSignOut",
-                "cognito-idp:AdminEnableUser",
-                "cognito-idp:AdminDisableUser",
-                "cognito-idp:AdminRemoveUserFromGroup",
-                "cognito-idp:AdminAddUserToGroup",
-                "cognito-idp:AdminListGroupsForUser",
-                "cognito-idp:AdminGetUser",
-                "cognito-idp:AdminConfirmSignUp",
-                "cognito-idp:ListUsers",
-                "cognito-idp:ListGroups"
+                "appsync:GraphQL"
               ],
-              "Resource": {
-                "Fn::Join": [
-                  "",
-                  [
-                    "arn:aws:cognito-idp:",
-                    {
-                      "Ref": "AWS::Region"
-                    },
-                    ":",
-                    {
-                      "Ref": "AWS::AccountId"
-                    },
-                    ":userpool/",
-                    {
-                      "Ref": "authrekogdemocustomauthUserPoolId"
-                    }
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:appsync:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":apis/",
+                      {
+                        "Ref": "apirekogdemoGraphQLGraphQLAPIIdOutput"
+                      },
+                      "/types/Query/*"
+                    ]
                   ]
-                ]
-              }
+                }
+              ]
             }
           ]
         }

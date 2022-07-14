@@ -3,7 +3,7 @@
   "serviceConfiguration": {
     "apiName": "rekogdemoGraphQL",
     "serviceName": "AppSync",
-    "gqlSchemaPath": "/Users/13812/1workspace/TelosID/passprint/custom-auth-rekognition-demo/webapp/amplify/backend/api/rekogdemoGraphQL/schema.graphql",
+    "gqlSchemaPath": "/Users/13809/Development/Telos/custom-auth-rekognition-demo/webapp/amplify/backend/api/rekogdemoGraphQL/schema.graphql",
     "defaultAuthType": {
       "mode": "AMAZON_COGNITO_USER_POOLS",
       "cognitoUserPoolId": "authrekogdemocustomauth"
@@ -11,9 +11,12 @@
     "additionalAuthTypes": [
       {
         "mode": "API_KEY",
-        "expirationTime": 7,
-        "apiKeyExpirationDate": "2022-07-20T18:43:46.927Z",
-        "keyDescription": ""
+        "expirationTime": 365,
+        "apiKeyExpirationDate": "2023-07-14T21:10:51.400Z",
+        "keyDescription": "API Key for GraphQL Lambda Resolver"
+      },
+      {
+        "mode": "AWS_IAM"
       }
     ]
   }

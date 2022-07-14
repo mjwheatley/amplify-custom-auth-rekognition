@@ -1,7 +1,9 @@
 export type AmplifyDependentResourcesAttributes = {
     "auth": {
         "userPoolGroups": {
-            "adminGroupRole": "string"
+            "adminGroupRole": "string",
+            "poweruserGroupRole": "string",
+            "viewerGroupRole": "string"
         },
         "rekogdemocustomauth": {
             "IdentityPoolId": "string",
@@ -43,6 +45,18 @@ export type AmplifyDependentResourcesAttributes = {
             "Arn": "string",
             "Region": "string",
             "LambdaExecutionRole": "string"
+        },
+        "idvworkflowfn": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
+        },
+        "S3Trigger0c916c43": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
         }
     },
     "api": {
@@ -55,6 +69,12 @@ export type AmplifyDependentResourcesAttributes = {
             "GraphQLAPIKeyOutput": "string",
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"
+        }
+    },
+    "storage": {
+        "idvimagebucket": {
+            "BucketName": "string",
+            "Region": "string"
         }
     }
 }

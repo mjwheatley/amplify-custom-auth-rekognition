@@ -1,0 +1,106 @@
+# this is an auto generated file. This will be overwritten
+subscription OnCreateUserInfo {
+  onCreateUserInfo {
+    companyid
+    userid
+    firstname
+    lastname
+    dob
+    registrationstatus
+    faceimage
+    faceid
+    description
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateUserInfo {
+  onUpdateUserInfo {
+    companyid
+    userid
+    firstname
+    lastname
+    dob
+    registrationstatus
+    faceimage
+    faceid
+    description
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteUserInfo {
+  onDeleteUserInfo {
+    companyid
+    userid
+    firstname
+    lastname
+    dob
+    registrationstatus
+    faceimage
+    faceid
+    description
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateConfigEntry {
+  onCreateConfigEntry {
+    configroot
+    configid
+    value
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateConfigEntry {
+  onUpdateConfigEntry {
+    configroot
+    configid
+    value
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteConfigEntry {
+  onDeleteConfigEntry {
+    configroot
+    configid
+    value
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateCachedCollectionList {
+  onCreateCachedCollectionList {
+    configroot
+    collectionid
+    arn
+    created
+    facemodel
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateCachedCollectionList {
+  onUpdateCachedCollectionList {
+    configroot
+    collectionid
+    arn
+    created
+    facemodel
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteCachedCollectionList {
+  onDeleteCachedCollectionList {
+    configroot
+    collectionid
+    arn
+    created
+    facemodel
+    createdAt
+    updatedAt
+  }
+}

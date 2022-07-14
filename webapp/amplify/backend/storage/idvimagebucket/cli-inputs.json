@@ -1,0 +1,24 @@
+{
+  "resourceName": "idvimagebucket",
+  "policyUUID": "946effe4",
+  "bucketName": "idvimagebucket",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [],
+  "triggerFunction": "S3Trigger0c916c43",
+  "groupAccess": {
+    "admin": [
+      "CREATE_AND_UPDATE",
+      "READ",
+      "DELETE"
+    ],
+    "poweruser": [
+      "CREATE_AND_UPDATE",
+      "READ",
+      "DELETE"
+    ],
+    "viewer": [
+      "READ"
+    ]
+  }
+}

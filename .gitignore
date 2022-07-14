@@ -79,3 +79,5 @@ fabric.properties
 /webapp/amplify/backend/function/rekogdemocustomauthDefineAuthChallenge/src/package-lock.json
 /webapp/amplify/backend/function/rekogdemocustomauthPostConfirmation/src/package-lock.json
 /webapp/amplify/backend/function/rekogdemocustomauthVerifyAuthChallengeResponse/src/package-lock.json
+package-lock.json
+.idea

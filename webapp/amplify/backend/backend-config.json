@@ -116,6 +116,52 @@
           ]
         }
       ]
+    },
+    "idvworkflowfn": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "rekogdemocustomauth",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
+          "category": "api",
+          "resourceName": "rekogdemoGraphQL",
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ]
+        },
+        {
+          "category": "storage",
+          "resourceName": "idvimagebucket",
+          "attributes": [
+            "BucketName"
+          ]
+        }
+      ]
+    },
+    "S3Trigger0c916c43": {
+      "service": "Lambda",
+      "providerPlugin": "awscloudformation",
+      "build": true,
+      "dependsOn": [
+        {
+          "category": "api",
+          "resourceName": "rekogdemoGraphQL",
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ]
+        }
+      ]
     }
   },
   "api": {
@@ -144,15 +190,6 @@
     "rekogdemoGraphQL": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "rekogdemocustomauth",
-          "attributes": [
-            "UserPoolId"
-          ]
-        }
-      ],
       "output": {
         "authConfig": {
           "defaultAuthentication": {
@@ -165,14 +202,62 @@
             {
               "authenticationType": "API_KEY",
               "apiKeyConfig": {
-                "apiKeyExpirationDays": 7,
-                "apiKeyExpirationDate": "2022-07-20T18:43:46.927Z",
-                "description": ""
+                "apiKeyExpirationDays": 365,
+                "apiKeyExpirationDate": "2023-07-14T21:10:51.400Z",
+                "description": "API Key for GraphQL Lambda Resolver"
               }
+            },
+            {
+              "authenticationType": "AWS_IAM"
             }
           ]
         }
       }
+    }
+  },
+  "storage": {
+    "idvimagebucket": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "S3Trigger0c916c43",
+          "attributes": [
+            "Name",
+            "Arn",
+            "LambdaExecutionRole"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "rekogdemocustomauth",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "userPoolGroups",
+          "attributes": [
+            "adminGroupRole"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "userPoolGroups",
+          "attributes": [
+            "poweruserGroupRole"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "userPoolGroups",
+          "attributes": [
+            "viewerGroupRole"
+          ]
+        }
+      ]
     }
   }
 }

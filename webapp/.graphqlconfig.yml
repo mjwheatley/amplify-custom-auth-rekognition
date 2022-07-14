@@ -2,11 +2,11 @@ projects:
   rekogdemoGraphQL:
     schemaPath: src/graphql/schema.json
     includes:
-      - src/graphql/**/*.js
+      - src/graphql/**/*.graphql
     excludes:
       - ./amplify/**
     extensions:
       amplify:
-        codeGenTarget: javascript
-        generatedFileName: ''
+        codeGenTarget: angular
+        generatedFileName: src/app/API.service.ts
         docsFilePath: src/graphql

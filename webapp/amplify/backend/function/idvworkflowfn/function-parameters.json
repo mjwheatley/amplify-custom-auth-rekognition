@@ -1,0 +1,33 @@
+{
+  "lambdaLayers": [],
+  "permissions": {
+    "auth": {
+      "rekogdemocustomauth": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    },
+    "api": {
+      "rekogdemoGraphQL": [
+        "Query",
+        "Mutation"
+      ]
+    },
+    "storage": {
+      "idvimagebucket": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ],
+      "UserInfo:@model(appsync)": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  }
+}

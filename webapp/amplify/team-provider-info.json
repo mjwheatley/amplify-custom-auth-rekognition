@@ -19,23 +19,31 @@
       "function": {
         "rekogdemocustomauthCreateAuthChallenge": {
           "deploymentBucketName": "amplify-rekogdemo-dev-130330-deployment",
-          "s3Key": "amplify-builds/rekogdemocustomauthCreateAuthChallenge-31416c54616b6c367739-build.zip"
+          "s3Key": "amplify-builds/rekogdemocustomauthCreateAuthChallenge-7264417a5a5742744579-build.zip"
         },
         "rekogdemocustomauthDefineAuthChallenge": {
           "deploymentBucketName": "amplify-rekogdemo-dev-130330-deployment",
-          "s3Key": "amplify-builds/rekogdemocustomauthDefineAuthChallenge-79616c5271727a6d6251-build.zip"
+          "s3Key": "amplify-builds/rekogdemocustomauthDefineAuthChallenge-4e6f3169744379494675-build.zip"
         },
         "rekogdemocustomauthPostConfirmation": {
           "deploymentBucketName": "amplify-rekogdemo-dev-130330-deployment",
-          "s3Key": "amplify-builds/rekogdemocustomauthPostConfirmation-44615775615442393865-build.zip"
+          "s3Key": "amplify-builds/rekogdemocustomauthPostConfirmation-782b6b3247535a584967-build.zip"
         },
         "rekogdemocustomauthVerifyAuthChallengeResponse": {
           "deploymentBucketName": "amplify-rekogdemo-dev-130330-deployment",
-          "s3Key": "amplify-builds/rekogdemocustomauthVerifyAuthChallengeResponse-5539394768624d794230-build.zip"
+          "s3Key": "amplify-builds/rekogdemocustomauthVerifyAuthChallengeResponse-5831476f325069754657-build.zip"
         },
         "AdminQueries24a5c4f0": {
           "deploymentBucketName": "amplify-rekogdemo-dev-130330-deployment",
-          "s3Key": "amplify-builds/AdminQueries24a5c4f0-4c425336787a5a447967-build.zip"
+          "s3Key": "amplify-builds/AdminQueries24a5c4f0-716c34697874714d4c38-build.zip"
+        },
+        "S3Trigger0c916c43": {
+          "deploymentBucketName": "amplify-rekogdemo-dev-130330-deployment",
+          "s3Key": "amplify-builds/S3Trigger0c916c43-4244343045422b517a76-build.zip"
+        },
+        "idvworkflowfn": {
+          "deploymentBucketName": "amplify-rekogdemo-dev-130330-deployment",
+          "s3Key": "amplify-builds/idvworkflowfn-4330306f4a6b2b417579-build.zip"
         }
       }
     }
