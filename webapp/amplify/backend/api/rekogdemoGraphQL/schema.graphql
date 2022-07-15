@@ -4,7 +4,7 @@ type UserInfo @model
   { allow: groups, groups: ["admin", "poweruser"], operations: [create, read, update, delete] },
   { allow: groups, groups: ["viewer"], operations: [read] }
 ]) {
-  companyid: String! @primaryKey(sortKeyFields: ["userid"]) @index(name: "userInfoByFaceId", sortKeyFields: ["faceid"]) @index(name: "userInfoByRegStatus", sortKeyFields: ["registrationstatus"])
+  companyid: String! @primaryKey(sortKeyFields: ["userid"]) @index(name: "userInfoByFaceId", sortKeyFields: ["faceid"], queryField: "userInfoByFaceId") @index(name: "userInfoByRegStatus", sortKeyFields: ["registrationstatus"], queryField: "userInfoByRegStatus")
   userid: String!
   firstname: String!
   lastname: String!

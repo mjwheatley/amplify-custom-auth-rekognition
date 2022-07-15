@@ -22,7 +22,7 @@ const getConfigEntry = gql`
 
 const userInfoByFaceId = gql`
   query UserInfoByFaceId(
-    $companyid: String
+    $companyid: String!
     $faceid: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelUserInfoFilterInput

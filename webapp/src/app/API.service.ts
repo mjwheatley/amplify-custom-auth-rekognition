@@ -567,6 +567,44 @@ export type ListUserInfosQuery = {
   nextToken?: string | null;
 };
 
+export type UserInfoByFaceIdQuery = {
+  __typename: "ModelUserInfoConnection";
+  items: Array<{
+    __typename: "UserInfo";
+    companyid: string;
+    userid: string;
+    firstname: string;
+    lastname: string;
+    dob: string;
+    registrationstatus: string;
+    faceimage?: string | null;
+    faceid?: string | null;
+    description?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null>;
+  nextToken?: string | null;
+};
+
+export type UserInfoByRegStatusQuery = {
+  __typename: "ModelUserInfoConnection";
+  items: Array<{
+    __typename: "UserInfo";
+    companyid: string;
+    userid: string;
+    firstname: string;
+    lastname: string;
+    dob: string;
+    registrationstatus: string;
+    faceimage?: string | null;
+    faceid?: string | null;
+    description?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null>;
+  nextToken?: string | null;
+};
+
 export type GetConfigEntryQuery = {
   __typename: "ConfigEntry";
   configroot: string;
@@ -1288,6 +1326,108 @@ export class APIService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <ListUserInfosQuery>response.data.listUserInfos;
+  }
+  async UserInfoByFaceId(
+    companyid: string,
+    faceid?: ModelStringKeyConditionInput,
+    sortDirection?: ModelSortDirection,
+    filter?: ModelUserInfoFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<UserInfoByFaceIdQuery> {
+    const statement = `query UserInfoByFaceId($companyid: String!, $faceid: ModelStringKeyConditionInput, $sortDirection: ModelSortDirection, $filter: ModelUserInfoFilterInput, $limit: Int, $nextToken: String) {
+        userInfoByFaceId(companyid: $companyid, faceid: $faceid, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            companyid
+            userid
+            firstname
+            lastname
+            dob
+            registrationstatus
+            faceimage
+            faceid
+            description
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      companyid
+    };
+    if (faceid) {
+      gqlAPIServiceArguments.faceid = faceid;
+    }
+    if (sortDirection) {
+      gqlAPIServiceArguments.sortDirection = sortDirection;
+    }
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UserInfoByFaceIdQuery>response.data.userInfoByFaceId;
+  }
+  async UserInfoByRegStatus(
+    companyid: string,
+    registrationstatus?: ModelStringKeyConditionInput,
+    sortDirection?: ModelSortDirection,
+    filter?: ModelUserInfoFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<UserInfoByRegStatusQuery> {
+    const statement = `query UserInfoByRegStatus($companyid: String!, $registrationstatus: ModelStringKeyConditionInput, $sortDirection: ModelSortDirection, $filter: ModelUserInfoFilterInput, $limit: Int, $nextToken: String) {
+        userInfoByRegStatus(companyid: $companyid, registrationstatus: $registrationstatus, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            companyid
+            userid
+            firstname
+            lastname
+            dob
+            registrationstatus
+            faceimage
+            faceid
+            description
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      companyid
+    };
+    if (registrationstatus) {
+      gqlAPIServiceArguments.registrationstatus = registrationstatus;
+    }
+    if (sortDirection) {
+      gqlAPIServiceArguments.sortDirection = sortDirection;
+    }
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UserInfoByRegStatusQuery>response.data.userInfoByRegStatus;
   }
   async GetConfigEntry(
     configroot: string,
