@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Auth, Hub } from 'aws-amplify';
 import { AlertController } from '@ionic/angular';
+import { SessionService } from './services';
 
 @Component({
   selector: 'app-root',
@@ -14,13 +15,16 @@ export class AppComponent {
   };
 
   constructor(
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private session: SessionService
   ) {
-    Hub.listen('auth', (data) => {
+    Hub.listen('auth', async (data) => {
       console.log(`Amplify Auth Hub event`, data.payload.event);
       switch (data.payload.event) {
         case 'signIn':
           console.log('user signed in');
+          const user = data.payload.data.attributes;
+          await this.session.updateUser(user);
           break;
         case 'signUp':
           console.log('user signed up');
@@ -71,7 +75,7 @@ export class AppComponent {
               role: `cancel`,
               text: `Cancel`,
               handler: () => {
-                reject(new Error(`Cancelled`))
+                reject(new Error(`Cancelled`));
               }
             }, {
               text: `Submit`,

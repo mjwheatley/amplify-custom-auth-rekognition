@@ -1,3 +1,31 @@
+type CognitoUser
+@model
+@auth(rules: [
+  { allow: owner, ownerField: "id", identityClaim: "sub" }
+])
+{
+  id: ID!
+  address: String
+  birthdate: String
+  email: String!
+  email_verified: Boolean
+  family_name: String!
+  gender: String
+  given_name: String!
+  locale: String
+  middle_name: String
+  name: String
+  nickname: String
+  phone_number: String
+  picture: String
+  preferred_username: String
+  profile: String
+  zoneinfo: String
+  updated_at: String
+  website: String
+  sub: String
+}
+
 type UserInfo @model
 @auth(rules: [
   { allow: private, provider: iam, operations: [create, read, update, delete] },

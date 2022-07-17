@@ -5,21 +5,8 @@
   >
     <ng-template
       amplifySlot="authenticated"
-      let-user="user"
-      let-signOut="signOut"
     >
-      <h1>Welcome {{ user.attributes.family_name }}!</h1>
-      <button (click)="signOut()">Sign Out</button>
-      <!--      <ion-router-outlet></ion-router-outlet>-->
-    </ng-template>
-    <ng-template
-      amplifySlot="authenticated"
-      let-user="user"
-      let-signOut="signOut"
-    >
-      <h1>Welcome {{ user.attributes.family_name }}!</h1>
-      <button (click)="signOut()">Sign Out</button>
-<!--      <ion-router-outlet></ion-router-outlet>-->
+      <ion-router-outlet></ion-router-outlet>
     </ng-template>
   </amplify-authenticator>
 </ion-app>

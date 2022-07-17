@@ -13,5 +13,12 @@
   "triggerEventPath": "PostConfirmation.event.json",
   "roleName": "rekogdemocustomauthPostConfirmation",
   "skipEdit": true,
-  "enableCors": false
+  "enableCors": false,
+  "permissions": {
+    "storage": {
+      "CognitoUser:@model(appsync)": [
+        "create"
+      ]
+    }
+  }
 }

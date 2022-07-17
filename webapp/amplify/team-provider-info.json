@@ -27,7 +27,7 @@
         },
         "rekogdemocustomauthPostConfirmation": {
           "deploymentBucketName": "amplify-rekogdemo-dev-130330-deployment",
-          "s3Key": "amplify-builds/rekogdemocustomauthPostConfirmation-782b6b3247535a584967-build.zip"
+          "s3Key": "amplify-builds/rekogdemocustomauthPostConfirmation-706442366c554c4d7379-build.zip"
         },
         "rekogdemocustomauthVerifyAuthChallengeResponse": {
           "deploymentBucketName": "amplify-rekogdemo-dev-130330-deployment",
@@ -43,7 +43,7 @@
         },
         "idvworkflowfn": {
           "deploymentBucketName": "amplify-rekogdemo-dev-130330-deployment",
-          "s3Key": "amplify-builds/idvworkflowfn-4330306f4a6b2b417579-build.zip"
+          "s3Key": "amplify-builds/idvworkflowfn-31746461773732386632-build.zip"
         }
       }
     }

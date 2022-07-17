@@ -1,0 +1,12 @@
+{
+  "name": "rekogdemo-post-confirmation",
+  "scripts": {
+    "build": "tsc -p ./tsconfig.json"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.83",
+    "aws-sdk": "^2.988.0",
+    "typescript": "4.3.5"
+  }
+}
