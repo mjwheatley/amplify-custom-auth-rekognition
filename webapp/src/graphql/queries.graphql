@@ -36,6 +36,65 @@ query Detecttextinidcard($imageDataBase64: String) {
     DetectedText
   }
 }
+query GetCognitoUser($id: ID!) {
+  getCognitoUser(id: $id) {
+    id
+    address
+    birthdate
+    email
+    email_verified
+    family_name
+    gender
+    given_name
+    locale
+    middle_name
+    name
+    nickname
+    phone_number
+    picture
+    preferred_username
+    profile
+    zoneinfo
+    updated_at
+    website
+    sub
+    createdAt
+    updatedAt
+  }
+}
+query ListCognitoUsers(
+  $filter: ModelCognitoUserFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCognitoUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      address
+      birthdate
+      email
+      email_verified
+      family_name
+      gender
+      given_name
+      locale
+      middle_name
+      name
+      nickname
+      phone_number
+      picture
+      preferred_username
+      profile
+      zoneinfo
+      updated_at
+      website
+      sub
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
 query GetUserInfo($companyid: String!, $userid: String!) {
   getUserInfo(companyid: $companyid, userid: $userid) {
     companyid

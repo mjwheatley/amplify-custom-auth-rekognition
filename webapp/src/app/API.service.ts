@@ -10,6 +10,9 @@ export interface SubscriptionResponse<T> {
 }
 
 export type __SubscriptionContainer = {
+  onCreateCognitoUser: OnCreateCognitoUserSubscription;
+  onUpdateCognitoUser: OnUpdateCognitoUserSubscription;
+  onDeleteCognitoUser: OnDeleteCognitoUserSubscription;
   onCreateUserInfo: OnCreateUserInfoSubscription;
   onUpdateUserInfo: OnUpdateUserInfoSubscription;
   onDeleteUserInfo: OnDeleteUserInfoSubscription;
@@ -64,29 +67,52 @@ export type DeleteUserResponse = {
   DOB?: string | null;
 };
 
-export type CreateUserInfoInput = {
-  companyid: string;
-  userid: string;
-  firstname: string;
-  lastname: string;
-  dob: string;
-  registrationstatus: string;
-  faceimage?: string | null;
-  faceid?: string | null;
-  description?: string | null;
+export type CreateCognitoUserInput = {
+  id?: string | null;
+  address?: string | null;
+  birthdate?: string | null;
+  email: string;
+  email_verified?: boolean | null;
+  family_name: string;
+  gender?: string | null;
+  given_name: string;
+  locale?: string | null;
+  middle_name?: string | null;
+  name?: string | null;
+  nickname?: string | null;
+  phone_number?: string | null;
+  picture?: string | null;
+  preferred_username?: string | null;
+  profile?: string | null;
+  zoneinfo?: string | null;
+  updated_at?: string | null;
+  website?: string | null;
+  sub?: string | null;
 };
 
-export type ModelUserInfoConditionInput = {
-  firstname?: ModelStringInput | null;
-  lastname?: ModelStringInput | null;
-  dob?: ModelStringInput | null;
-  registrationstatus?: ModelStringInput | null;
-  faceimage?: ModelStringInput | null;
-  faceid?: ModelStringInput | null;
-  description?: ModelStringInput | null;
-  and?: Array<ModelUserInfoConditionInput | null> | null;
-  or?: Array<ModelUserInfoConditionInput | null> | null;
-  not?: ModelUserInfoConditionInput | null;
+export type ModelCognitoUserConditionInput = {
+  address?: ModelStringInput | null;
+  birthdate?: ModelStringInput | null;
+  email?: ModelStringInput | null;
+  email_verified?: ModelBooleanInput | null;
+  family_name?: ModelStringInput | null;
+  gender?: ModelStringInput | null;
+  given_name?: ModelStringInput | null;
+  locale?: ModelStringInput | null;
+  middle_name?: ModelStringInput | null;
+  name?: ModelStringInput | null;
+  nickname?: ModelStringInput | null;
+  phone_number?: ModelStringInput | null;
+  picture?: ModelStringInput | null;
+  preferred_username?: ModelStringInput | null;
+  profile?: ModelStringInput | null;
+  zoneinfo?: ModelStringInput | null;
+  updated_at?: ModelStringInput | null;
+  website?: ModelStringInput | null;
+  sub?: ModelStringInput | null;
+  and?: Array<ModelCognitoUserConditionInput | null> | null;
+  or?: Array<ModelCognitoUserConditionInput | null> | null;
+  not?: ModelCognitoUserConditionInput | null;
 };
 
 export type ModelStringInput = {
@@ -126,6 +152,91 @@ export type ModelSizeInput = {
   ge?: number | null;
   gt?: number | null;
   between?: Array<number | null> | null;
+};
+
+export type ModelBooleanInput = {
+  ne?: boolean | null;
+  eq?: boolean | null;
+  attributeExists?: boolean | null;
+  attributeType?: ModelAttributeTypes | null;
+};
+
+export type CognitoUser = {
+  __typename: "CognitoUser";
+  id: string;
+  address?: string | null;
+  birthdate?: string | null;
+  email: string;
+  email_verified?: boolean | null;
+  family_name: string;
+  gender?: string | null;
+  given_name: string;
+  locale?: string | null;
+  middle_name?: string | null;
+  name?: string | null;
+  nickname?: string | null;
+  phone_number?: string | null;
+  picture?: string | null;
+  preferred_username?: string | null;
+  profile?: string | null;
+  zoneinfo?: string | null;
+  updated_at?: string | null;
+  website?: string | null;
+  sub?: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type UpdateCognitoUserInput = {
+  id: string;
+  address?: string | null;
+  birthdate?: string | null;
+  email?: string | null;
+  email_verified?: boolean | null;
+  family_name?: string | null;
+  gender?: string | null;
+  given_name?: string | null;
+  locale?: string | null;
+  middle_name?: string | null;
+  name?: string | null;
+  nickname?: string | null;
+  phone_number?: string | null;
+  picture?: string | null;
+  preferred_username?: string | null;
+  profile?: string | null;
+  zoneinfo?: string | null;
+  updated_at?: string | null;
+  website?: string | null;
+  sub?: string | null;
+};
+
+export type DeleteCognitoUserInput = {
+  id: string;
+};
+
+export type CreateUserInfoInput = {
+  companyid: string;
+  userid: string;
+  firstname: string;
+  lastname: string;
+  dob: string;
+  registrationstatus: string;
+  faceimage?: string | null;
+  faceid?: string | null;
+  description?: string | null;
+};
+
+export type ModelUserInfoConditionInput = {
+  firstname?: ModelStringInput | null;
+  lastname?: ModelStringInput | null;
+  dob?: ModelStringInput | null;
+  registrationstatus?: ModelStringInput | null;
+  faceimage?: ModelStringInput | null;
+  faceid?: ModelStringInput | null;
+  description?: ModelStringInput | null;
+  and?: Array<ModelUserInfoConditionInput | null> | null;
+  or?: Array<ModelUserInfoConditionInput | null> | null;
+  not?: ModelUserInfoConditionInput | null;
 };
 
 export type UserInfo = {
@@ -271,6 +382,54 @@ export type DetectTextResponse = {
   DetectedText?: Array<string | null> | null;
 };
 
+export type ModelCognitoUserFilterInput = {
+  id?: ModelIDInput | null;
+  address?: ModelStringInput | null;
+  birthdate?: ModelStringInput | null;
+  email?: ModelStringInput | null;
+  email_verified?: ModelBooleanInput | null;
+  family_name?: ModelStringInput | null;
+  gender?: ModelStringInput | null;
+  given_name?: ModelStringInput | null;
+  locale?: ModelStringInput | null;
+  middle_name?: ModelStringInput | null;
+  name?: ModelStringInput | null;
+  nickname?: ModelStringInput | null;
+  phone_number?: ModelStringInput | null;
+  picture?: ModelStringInput | null;
+  preferred_username?: ModelStringInput | null;
+  profile?: ModelStringInput | null;
+  zoneinfo?: ModelStringInput | null;
+  updated_at?: ModelStringInput | null;
+  website?: ModelStringInput | null;
+  sub?: ModelStringInput | null;
+  and?: Array<ModelCognitoUserFilterInput | null> | null;
+  or?: Array<ModelCognitoUserFilterInput | null> | null;
+  not?: ModelCognitoUserFilterInput | null;
+};
+
+export type ModelIDInput = {
+  ne?: string | null;
+  eq?: string | null;
+  le?: string | null;
+  lt?: string | null;
+  ge?: string | null;
+  gt?: string | null;
+  contains?: string | null;
+  notContains?: string | null;
+  between?: Array<string | null> | null;
+  beginsWith?: string | null;
+  attributeExists?: boolean | null;
+  attributeType?: ModelAttributeTypes | null;
+  size?: ModelSizeInput | null;
+};
+
+export type ModelCognitoUserConnection = {
+  __typename: "ModelCognitoUserConnection";
+  items: Array<CognitoUser | null>;
+  nextToken?: string | null;
+};
+
 export type ModelStringKeyConditionInput = {
   eq?: string | null;
   le?: string | null;
@@ -389,6 +548,84 @@ export type DeleteuserMutation = {
   FirstName?: string | null;
   LastName?: string | null;
   DOB?: string | null;
+};
+
+export type CreateCognitoUserMutation = {
+  __typename: "CognitoUser";
+  id: string;
+  address?: string | null;
+  birthdate?: string | null;
+  email: string;
+  email_verified?: boolean | null;
+  family_name: string;
+  gender?: string | null;
+  given_name: string;
+  locale?: string | null;
+  middle_name?: string | null;
+  name?: string | null;
+  nickname?: string | null;
+  phone_number?: string | null;
+  picture?: string | null;
+  preferred_username?: string | null;
+  profile?: string | null;
+  zoneinfo?: string | null;
+  updated_at?: string | null;
+  website?: string | null;
+  sub?: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type UpdateCognitoUserMutation = {
+  __typename: "CognitoUser";
+  id: string;
+  address?: string | null;
+  birthdate?: string | null;
+  email: string;
+  email_verified?: boolean | null;
+  family_name: string;
+  gender?: string | null;
+  given_name: string;
+  locale?: string | null;
+  middle_name?: string | null;
+  name?: string | null;
+  nickname?: string | null;
+  phone_number?: string | null;
+  picture?: string | null;
+  preferred_username?: string | null;
+  profile?: string | null;
+  zoneinfo?: string | null;
+  updated_at?: string | null;
+  website?: string | null;
+  sub?: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type DeleteCognitoUserMutation = {
+  __typename: "CognitoUser";
+  id: string;
+  address?: string | null;
+  birthdate?: string | null;
+  email: string;
+  email_verified?: boolean | null;
+  family_name: string;
+  gender?: string | null;
+  given_name: string;
+  locale?: string | null;
+  middle_name?: string | null;
+  name?: string | null;
+  nickname?: string | null;
+  phone_number?: string | null;
+  picture?: string | null;
+  preferred_username?: string | null;
+  profile?: string | null;
+  zoneinfo?: string | null;
+  updated_at?: string | null;
+  website?: string | null;
+  sub?: string | null;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type CreateUserInfoMutation = {
@@ -533,6 +770,62 @@ export type DetecttextinidcardQuery = {
   DetectedText?: Array<string | null> | null;
 };
 
+export type GetCognitoUserQuery = {
+  __typename: "CognitoUser";
+  id: string;
+  address?: string | null;
+  birthdate?: string | null;
+  email: string;
+  email_verified?: boolean | null;
+  family_name: string;
+  gender?: string | null;
+  given_name: string;
+  locale?: string | null;
+  middle_name?: string | null;
+  name?: string | null;
+  nickname?: string | null;
+  phone_number?: string | null;
+  picture?: string | null;
+  preferred_username?: string | null;
+  profile?: string | null;
+  zoneinfo?: string | null;
+  updated_at?: string | null;
+  website?: string | null;
+  sub?: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type ListCognitoUsersQuery = {
+  __typename: "ModelCognitoUserConnection";
+  items: Array<{
+    __typename: "CognitoUser";
+    id: string;
+    address?: string | null;
+    birthdate?: string | null;
+    email: string;
+    email_verified?: boolean | null;
+    family_name: string;
+    gender?: string | null;
+    given_name: string;
+    locale?: string | null;
+    middle_name?: string | null;
+    name?: string | null;
+    nickname?: string | null;
+    phone_number?: string | null;
+    picture?: string | null;
+    preferred_username?: string | null;
+    profile?: string | null;
+    zoneinfo?: string | null;
+    updated_at?: string | null;
+    website?: string | null;
+    sub?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null>;
+  nextToken?: string | null;
+};
+
 export type GetUserInfoQuery = {
   __typename: "UserInfo";
   companyid: string;
@@ -651,6 +944,84 @@ export type ListCachedCollectionListsQuery = {
     updatedAt: string;
   } | null>;
   nextToken?: string | null;
+};
+
+export type OnCreateCognitoUserSubscription = {
+  __typename: "CognitoUser";
+  id: string;
+  address?: string | null;
+  birthdate?: string | null;
+  email: string;
+  email_verified?: boolean | null;
+  family_name: string;
+  gender?: string | null;
+  given_name: string;
+  locale?: string | null;
+  middle_name?: string | null;
+  name?: string | null;
+  nickname?: string | null;
+  phone_number?: string | null;
+  picture?: string | null;
+  preferred_username?: string | null;
+  profile?: string | null;
+  zoneinfo?: string | null;
+  updated_at?: string | null;
+  website?: string | null;
+  sub?: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OnUpdateCognitoUserSubscription = {
+  __typename: "CognitoUser";
+  id: string;
+  address?: string | null;
+  birthdate?: string | null;
+  email: string;
+  email_verified?: boolean | null;
+  family_name: string;
+  gender?: string | null;
+  given_name: string;
+  locale?: string | null;
+  middle_name?: string | null;
+  name?: string | null;
+  nickname?: string | null;
+  phone_number?: string | null;
+  picture?: string | null;
+  preferred_username?: string | null;
+  profile?: string | null;
+  zoneinfo?: string | null;
+  updated_at?: string | null;
+  website?: string | null;
+  sub?: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OnDeleteCognitoUserSubscription = {
+  __typename: "CognitoUser";
+  id: string;
+  address?: string | null;
+  birthdate?: string | null;
+  email: string;
+  email_verified?: boolean | null;
+  family_name: string;
+  gender?: string | null;
+  given_name: string;
+  locale?: string | null;
+  middle_name?: string | null;
+  name?: string | null;
+  nickname?: string | null;
+  phone_number?: string | null;
+  picture?: string | null;
+  preferred_username?: string | null;
+  profile?: string | null;
+  zoneinfo?: string | null;
+  updated_at?: string | null;
+  website?: string | null;
+  sub?: string | null;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type OnCreateUserInfoSubscription = {
@@ -905,6 +1276,132 @@ export class APIService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <DeleteuserMutation>response.data.deleteuser;
+  }
+  async CreateCognitoUser(
+    input: CreateCognitoUserInput,
+    condition?: ModelCognitoUserConditionInput
+  ): Promise<CreateCognitoUserMutation> {
+    const statement = `mutation CreateCognitoUser($input: CreateCognitoUserInput!, $condition: ModelCognitoUserConditionInput) {
+        createCognitoUser(input: $input, condition: $condition) {
+          __typename
+          id
+          address
+          birthdate
+          email
+          email_verified
+          family_name
+          gender
+          given_name
+          locale
+          middle_name
+          name
+          nickname
+          phone_number
+          picture
+          preferred_username
+          profile
+          zoneinfo
+          updated_at
+          website
+          sub
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <CreateCognitoUserMutation>response.data.createCognitoUser;
+  }
+  async UpdateCognitoUser(
+    input: UpdateCognitoUserInput,
+    condition?: ModelCognitoUserConditionInput
+  ): Promise<UpdateCognitoUserMutation> {
+    const statement = `mutation UpdateCognitoUser($input: UpdateCognitoUserInput!, $condition: ModelCognitoUserConditionInput) {
+        updateCognitoUser(input: $input, condition: $condition) {
+          __typename
+          id
+          address
+          birthdate
+          email
+          email_verified
+          family_name
+          gender
+          given_name
+          locale
+          middle_name
+          name
+          nickname
+          phone_number
+          picture
+          preferred_username
+          profile
+          zoneinfo
+          updated_at
+          website
+          sub
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UpdateCognitoUserMutation>response.data.updateCognitoUser;
+  }
+  async DeleteCognitoUser(
+    input: DeleteCognitoUserInput,
+    condition?: ModelCognitoUserConditionInput
+  ): Promise<DeleteCognitoUserMutation> {
+    const statement = `mutation DeleteCognitoUser($input: DeleteCognitoUserInput!, $condition: ModelCognitoUserConditionInput) {
+        deleteCognitoUser(input: $input, condition: $condition) {
+          __typename
+          id
+          address
+          birthdate
+          email
+          email_verified
+          family_name
+          gender
+          given_name
+          locale
+          middle_name
+          name
+          nickname
+          phone_number
+          picture
+          preferred_username
+          profile
+          zoneinfo
+          updated_at
+          website
+          sub
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <DeleteCognitoUserMutation>response.data.deleteCognitoUser;
   }
   async CreateUserInfo(
     input: CreateUserInfoInput,
@@ -1246,6 +1743,93 @@ export class APIService {
     )) as any;
     return <DetecttextinidcardQuery>response.data.detecttextinidcard;
   }
+  async GetCognitoUser(id: string): Promise<GetCognitoUserQuery> {
+    const statement = `query GetCognitoUser($id: ID!) {
+        getCognitoUser(id: $id) {
+          __typename
+          id
+          address
+          birthdate
+          email
+          email_verified
+          family_name
+          gender
+          given_name
+          locale
+          middle_name
+          name
+          nickname
+          phone_number
+          picture
+          preferred_username
+          profile
+          zoneinfo
+          updated_at
+          website
+          sub
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      id
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetCognitoUserQuery>response.data.getCognitoUser;
+  }
+  async ListCognitoUsers(
+    filter?: ModelCognitoUserFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<ListCognitoUsersQuery> {
+    const statement = `query ListCognitoUsers($filter: ModelCognitoUserFilterInput, $limit: Int, $nextToken: String) {
+        listCognitoUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            id
+            address
+            birthdate
+            email
+            email_verified
+            family_name
+            gender
+            given_name
+            locale
+            middle_name
+            name
+            nickname
+            phone_number
+            picture
+            preferred_username
+            profile
+            zoneinfo
+            updated_at
+            website
+            sub
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ListCognitoUsersQuery>response.data.listCognitoUsers;
+  }
   async GetUserInfo(
     companyid: string,
     userid: string
@@ -1573,6 +2157,135 @@ export class APIService {
       response.data.listCachedCollectionLists
     );
   }
+  OnCreateCognitoUserListener(
+    id?: string
+  ): Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateCognitoUser">>
+  > {
+    const statement = `subscription OnCreateCognitoUser($id: String) {
+        onCreateCognitoUser(id: $id) {
+          __typename
+          id
+          address
+          birthdate
+          email
+          email_verified
+          family_name
+          gender
+          given_name
+          locale
+          middle_name
+          name
+          nickname
+          phone_number
+          picture
+          preferred_username
+          profile
+          zoneinfo
+          updated_at
+          website
+          sub
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (id) {
+      gqlAPIServiceArguments.id = id;
+    }
+    return API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    ) as Observable<
+      SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateCognitoUser">>
+    >;
+  }
+
+  OnUpdateCognitoUserListener(
+    id?: string
+  ): Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateCognitoUser">>
+  > {
+    const statement = `subscription OnUpdateCognitoUser($id: String) {
+        onUpdateCognitoUser(id: $id) {
+          __typename
+          id
+          address
+          birthdate
+          email
+          email_verified
+          family_name
+          gender
+          given_name
+          locale
+          middle_name
+          name
+          nickname
+          phone_number
+          picture
+          preferred_username
+          profile
+          zoneinfo
+          updated_at
+          website
+          sub
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (id) {
+      gqlAPIServiceArguments.id = id;
+    }
+    return API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    ) as Observable<
+      SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateCognitoUser">>
+    >;
+  }
+
+  OnDeleteCognitoUserListener(
+    id?: string
+  ): Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteCognitoUser">>
+  > {
+    const statement = `subscription OnDeleteCognitoUser($id: String) {
+        onDeleteCognitoUser(id: $id) {
+          __typename
+          id
+          address
+          birthdate
+          email
+          email_verified
+          family_name
+          gender
+          given_name
+          locale
+          middle_name
+          name
+          nickname
+          phone_number
+          picture
+          preferred_username
+          profile
+          zoneinfo
+          updated_at
+          website
+          sub
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (id) {
+      gqlAPIServiceArguments.id = id;
+    }
+    return API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    ) as Observable<
+      SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteCognitoUser">>
+    >;
+  }
+
   OnCreateUserInfoListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateUserInfo">>
   > = API.graphql(

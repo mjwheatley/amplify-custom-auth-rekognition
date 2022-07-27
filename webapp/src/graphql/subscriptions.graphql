@@ -1,4 +1,82 @@
 # this is an auto generated file. This will be overwritten
+subscription OnCreateCognitoUser($id: String) {
+  onCreateCognitoUser(id: $id) {
+    id
+    address
+    birthdate
+    email
+    email_verified
+    family_name
+    gender
+    given_name
+    locale
+    middle_name
+    name
+    nickname
+    phone_number
+    picture
+    preferred_username
+    profile
+    zoneinfo
+    updated_at
+    website
+    sub
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateCognitoUser($id: String) {
+  onUpdateCognitoUser(id: $id) {
+    id
+    address
+    birthdate
+    email
+    email_verified
+    family_name
+    gender
+    given_name
+    locale
+    middle_name
+    name
+    nickname
+    phone_number
+    picture
+    preferred_username
+    profile
+    zoneinfo
+    updated_at
+    website
+    sub
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteCognitoUser($id: String) {
+  onDeleteCognitoUser(id: $id) {
+    id
+    address
+    birthdate
+    email
+    email_verified
+    family_name
+    gender
+    given_name
+    locale
+    middle_name
+    name
+    nickname
+    phone_number
+    picture
+    preferred_username
+    profile
+    zoneinfo
+    updated_at
+    website
+    sub
+    createdAt
+    updatedAt
+  }
+}
 subscription OnCreateUserInfo {
   onCreateUserInfo {
     companyid

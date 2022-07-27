@@ -81,3 +81,4 @@ fabric.properties
 /webapp/amplify/backend/function/rekogdemocustomauthVerifyAuthChallengeResponse/src/package-lock.json
 package-lock.json
 .idea
+yarn.lock
