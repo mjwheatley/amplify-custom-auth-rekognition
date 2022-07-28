@@ -86,12 +86,30 @@
     "rekogdemocustomauthCreateAuthChallenge": {
       "build": true,
       "providerPlugin": "awscloudformation",
-      "service": "Lambda"
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "api",
+          "resourceName": "rekogdemoGraphQL",
+          "attributes": [
+            "GraphQLAPIIdOutput"
+          ]
+        }
+      ]
     },
     "rekogdemocustomauthDefineAuthChallenge": {
       "build": true,
       "providerPlugin": "awscloudformation",
-      "service": "Lambda"
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "api",
+          "resourceName": "rekogdemoGraphQL",
+          "attributes": [
+            "GraphQLAPIIdOutput"
+          ]
+        }
+      ]
     },
     "rekogdemocustomauthPostConfirmation": {
       "build": true,

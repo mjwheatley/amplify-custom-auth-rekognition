@@ -13,5 +13,12 @@
   "triggerEventPath": "DefineAuthChallenge.event.json",
   "roleName": "rekogdemocustomauthDefineAuthChallenge",
   "skipEdit": true,
-  "enableCors": false
+  "enableCors": false,
+  "permissions": {
+    "storage": {
+      "UserInfo:@model(appsync)": [
+        "read"
+      ]
+    }
+  }
 }

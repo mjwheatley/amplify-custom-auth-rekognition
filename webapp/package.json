@@ -10,7 +10,10 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "amplify:rekogdemocustomauthPostConfirmation": "cd amplify/backend/function/rekogdemocustomauthPostConfirmation && npm i && tsc -p ./tsconfig.json && cd src && npm i && cd -"
+    "amplify:rekogdemocustomauthPostConfirmation": "cd amplify/backend/function/rekogdemocustomauthPostConfirmation && npm i && tsc -p ./tsconfig.json && cd src && npm i && cd -",
+    "amplify:rekogdemocustomauthDefineAuthChallenge": "cd amplify/backend/function/rekogdemocustomauthDefineAuthChallenge && npm i && tsc -p ./tsconfig.json && cd src && npm i && cd -",
+    "amplify:rekogdemocustomauthCreateAuthChallenge": "cd amplify/backend/function/rekogdemocustomauthCreateAuthChallenge && npm i && tsc -p ./tsconfig.json && cd src && npm i && cd -",
+    "amplify:rekogdemocustomauthVerifyAuthChallenge": "cd amplify/backend/function/rekogdemocustomauthVerifyAuthChallenge && npm i && tsc -p ./tsconfig.json && cd src && npm i && cd -"
   },
   "private": true,
   "dependencies": {

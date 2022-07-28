@@ -13,5 +13,18 @@
   "triggerEventPath": "CreateAuthChallenge.event.json",
   "roleName": "rekogdemocustomauthCreateAuthChallenge",
   "skipEdit": true,
-  "enableCors": false
+  "enableCors": false,
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "challengeanswer",
+      "environmentVariableName": "CHALLENGEANSWER"
+    }
+  ],
+  "permissions": {
+    "storage": {
+      "UserInfo:@model(appsync)": [
+        "read"
+      ]
+    }
+  }
 }

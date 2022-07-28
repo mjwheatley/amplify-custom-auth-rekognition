@@ -1,0 +1,21 @@
+{
+  "name": "verify-auth-challenge-response",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p .",
+    "prepare": "npm run build",
+    "test": "jest",
+    "watch": "tsc-watch --noClear -p ./tsconfig.json"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.83",
+    "@types/node": "^16.7.1",
+    "aws-sdk": "^2.1183.0",
+    "jest": "^27.0.6",
+    "ts-jest": "^27.0.5",
+    "tsc-watch": "^4.5.0",
+    "typescript": "4.3.5"
+  }
+}
