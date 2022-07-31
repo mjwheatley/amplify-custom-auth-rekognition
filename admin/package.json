@@ -7,9 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "export": "next export",
+    "preinstall": "npx npm-force-resolutions",
     "aws-exports": "cp ../webapp/src/aws-exports.js src/",
-    "predeploy": "npm run build",
-    "deploy": ". ../aws-sam/environment/admin.${AMPLIFY_ENV}.env.sh && aws s3 sync www/ s3://${subdomainName}.${domainName} --delete --region us-east-1",
+    "predeploy": "npm run build && npm run export",
+    "deploy": ". ../aws-sam/environment/admin.${AMPLIFY_ENV}.env.sh && aws s3 sync out/ s3://${subdomainName}.${domainName} --delete --region us-east-1",
     "postdeploy": ". ../aws-sam/environment/admin.${AMPLIFY_ENV}.env.sh && aws cloudfront create-invalidation --distribution-id ${CLOUDFRONT_DISTRIBUTION_ID} --paths '/*' --region us-east-1"
   },
   "dependencies": {
@@ -36,5 +38,8 @@
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.0",
     "typescript": "4.4.2"
+  },
+  "resolutions": {
+    "@types/react": "17.0.19"
   }
 }

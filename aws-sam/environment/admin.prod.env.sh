@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 # aws-sam params
 export ENV=prod
-export domainName=mawhea.me
+export domainName=mawhea.com
 export subdomainName=rekogadmin
 export applicationPrefix=${subdomainName}
 export hostedZoneId=ZPK60LWN0MMF2

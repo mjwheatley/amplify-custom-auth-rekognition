@@ -1,4 +1,4 @@
-import { Amplify, withSSRContext } from "aws-amplify";
+import { Amplify, Auth, withSSRContext } from 'aws-amplify';
 import React, {  } from "react";
 import awsExports from "../src/aws-exports";
 import { GetServerSideProps } from 'next'
@@ -9,12 +9,12 @@ import { PageProps } from "../common/common-types";
 Amplify.configure({ ...awsExports, ssr: true });
 
 export const getStaticProps: GetServerSideProps = async (context) => {
-  const SSR = withSSRContext(context);
+  // const SSR = withSSRContext(context);
 
   var myProps: PageProps = { username: '', pageHeading: 'Browse users' };
 
   try {
-    const user = await SSR.Auth.currentAuthenticatedUser();
+    const user = await Auth.currentAuthenticatedUser();
     if (user && user.username) {
       myProps.username = user.username;
     }

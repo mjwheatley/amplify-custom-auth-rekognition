@@ -1,4 +1,4 @@
-import { Amplify, withSSRContext } from "aws-amplify";
+import { Amplify, Auth, withSSRContext } from 'aws-amplify';
 import React, { useState, SetStateAction, Dispatch } from "react";
 import awsExports from "../src/aws-exports";
 import { GetServerSideProps } from 'next'
@@ -17,13 +17,13 @@ function handleLinkClick(linkName: string, state: DashboardState, setState: Disp
   setState({ currentMenuItem: linkName, username: state.username });
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const SSR = withSSRContext(context);
+export const getStaticProps: GetServerSideProps = async (context) => {
+  // const SSR = withSSRContext(context);
 
   var myProps: PageProps = { username: '', pageHeading: 'Rekognition Id Verification Demo' };
 
   try {
-    const user = await SSR.Auth.currentAuthenticatedUser();
+    const user = await Auth.currentAuthenticatedUser();
     if (user && user.username) {
       myProps.username = user.username;
     }

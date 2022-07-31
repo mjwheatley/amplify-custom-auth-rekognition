@@ -109,6 +109,7 @@ export const LoginUser = (props: DashboardProps) => {
         [webcamRef]
     );
 
+    // @ts-ignore
     return (
         <div>
             <div>

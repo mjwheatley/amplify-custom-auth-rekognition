@@ -82,20 +82,20 @@ const onAddCollection = async (pageProps: CollectionPageProps,
 
         if(!data?.createcollection?.Success) {
             closeModal();
-            setState({ collectionId: pageProps.collectionId, 
-                collections: pageProps.collections, 
-                fetchState: pageProps.fetchState, 
-                isFetching: pageProps.isFetching, 
+            setState({ collectionId: pageProps.collectionId,
+                collections: pageProps.collections,
+                fetchState: pageProps.fetchState,
+                isFetching: pageProps.isFetching,
                 alertMessage: data?.createcollection?.Message as string,
                 showModal: pageProps.showModal,
                 defaultCollection: pageProps.defaultCollection });
         } else {
             const fetchedCollectionList = await fetchCollections();
             closeModal();
-            setState({ collectionId: '', 
-                collections: fetchedCollectionList, 
-                fetchState: pageProps.fetchState, 
-                isFetching: pageProps.isFetching, 
+            setState({ collectionId: '',
+                collections: fetchedCollectionList,
+                fetchState: pageProps.fetchState,
+                isFetching: pageProps.isFetching,
                 alertMessage: pageProps.alertMessage,
                 showModal: pageProps.showModal,
                 defaultCollection: pageProps.defaultCollection });
@@ -103,10 +103,10 @@ const onAddCollection = async (pageProps: CollectionPageProps,
     } catch (errors) {
         closeModal();
 
-        setState({ collectionId: pageProps.collectionId, 
-            collections: pageProps.collections, 
-            fetchState: pageProps.fetchState, 
-            isFetching: pageProps.isFetching, 
+        setState({ collectionId: pageProps.collectionId,
+            collections: pageProps.collections,
+            fetchState: pageProps.fetchState,
+            isFetching: pageProps.isFetching,
             alertMessage: JSON.stringify(errors),
             showModal: pageProps.showModal,
             defaultCollection: pageProps.defaultCollection });
@@ -246,11 +246,15 @@ export const Collections = (props: DashboardProps) => {
                     <div className="list-group">
                         {pageProps.collections.map((item, index) => {
                             var isActive = item.CollectionId === pageProps.defaultCollection;
+                            // @ts-ignore
                             return (
                                 <div key={item.CollectionId} className="list-group-item list-group-item-action" aria-current="true">
                                     <div className="d-flex w-100 justify-content-between">
                                         <h5 className={`mb-1 ${isActive ? "text-primary" : ""}`}>
-                                            {isActive && <CheckCircleFill style={{marginRight: 3, marginBottom: 5}} />}
+                                            {
+                                                isActive &&
+                                                <CheckCircleFill style={{marginRight: 3, marginBottom: 5}} />
+                                            }
                                             {item.CollectionId}
                                         </h5>
                                         <small><strong className="text-secondary">Face count: </strong>{item.FaceCount}</small>
