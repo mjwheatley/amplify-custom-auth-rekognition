@@ -82,3 +82,5 @@ fabric.properties
 package-lock.json
 .idea
 yarn.lock
+.aws-sam
+node_modules

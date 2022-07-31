@@ -33,7 +33,7 @@
         },
         "rekogdemocustomauthVerifyAuthChallengeResponse": {
           "deploymentBucketName": "amplify-rekogdemo-prod-131209-deployment",
-          "s3Key": "amplify-builds/rekogdemocustomauthVerifyAuthChallengeResponse-30685574364b622b4756-build.zip"
+          "s3Key": "amplify-builds/rekogdemocustomauthVerifyAuthChallengeResponse-76524c37474f2b745445-build.zip"
         },
         "AdminQueries24a5c4f0": {
           "deploymentBucketName": "amplify-rekogdemo-prod-131209-deployment",
@@ -46,6 +46,21 @@
         "S3Trigger0c916c43": {
           "deploymentBucketName": "amplify-rekogdemo-prod-131209-deployment",
           "s3Key": "amplify-builds/S3Trigger0c916c43-495747634d6252564369-build.zip"
+        }
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d26cmx58jbbhtr",
+          "type": "manual"
+        }
+      },
+      "custom": {
+        "HostingAdmin": {
+          "subdomainName": "rekogadmin",
+          "PriceClass": "PriceClass_100",
+          "hostedZoneId": "ZPK60LWN0MMF2",
+          "domainName": "mawhea.com",
+          "certificateArn": "arn:aws:acm:us-east-1:104492362278:certificate/51059810-5bcb-45d8-9d57-3da19d528595"
         }
       }
     }

@@ -1,22 +1,82 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Auth, Hub } from 'aws-amplify';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { SessionService } from './services';
+import { FacialRekognitionModalComponent } from './modals';
+import { FileUtil } from './utils';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  services = {
+  public services = {
     handleSignIn: this.handleSignIn.bind(this)
   };
 
+  public formFields = {
+    signIn: {
+      username: {
+        labelHidden: false,
+        placeholder: 'Enter your email address',
+        isRequired: true,
+        label: 'Email'
+      },
+      password: {
+        labelHidden: false,
+        placeholder: 'Enter your password',
+        isRequired: true,
+        label: 'Password'
+      }
+    },
+    signUp: {
+      email: {
+        order:1,
+        labelHidden: false,
+        placeholder: 'Enter your email address',
+        isRequired: true,
+        label: 'Email'
+      },
+      given_name: {
+        order: 2,
+        labelHidden: false,
+        placeholder: 'Enter your given name',
+        isRequired: true,
+        label: 'First Name'
+      },
+      family_name: {
+        order: 3,
+        labelHidden: false,
+        placeholder: 'Enter your family name',
+        isRequired: true,
+        label: 'Last Name'
+      },
+      password: {
+        order: 5,
+        labelHidden: false,
+        placeholder: 'Create your password',
+        isRequired: true,
+        label: 'Password'
+      },
+      confirm_password: {
+        order: 6,
+        labelHidden: false,
+        placeholder: 'Confirm your password',
+        isRequired: true,
+        label: 'Confirm Password'
+      }
+    }
+  };
+
+  private MAX_FILE_SIZE: number = 102400;
+  private IMAGE_URI_PREFIX: string = `data:image/jpeg;base64,`;
+
   constructor(
     private alertCtrl: AlertController,
-    private session: SessionService
+    private session: SessionService,
+    private modalCtrl: ModalController
   ) {
     Hub.listen('auth', async (data) => {
       console.log(`Amplify Auth Hub event`, data.payload.event);
@@ -41,8 +101,12 @@ export class AppComponent {
     });
   }
 
+  async ngOnInit() {
+    // await this.openFacialRekognitionModal();
+  }
+
   private async handleSignIn(formData: Record<string, any>) {
-    console.log(`handleSignIn() formData`, formData);
+    console.log(`handleSignIn()`);
     let { username, password } = formData;
     return Auth.signIn({
       username,
@@ -52,44 +116,30 @@ export class AppComponent {
       if (
         session.authenticationFlowType === `CUSTOM_AUTH` &&
         session.challengeName === `CUSTOM_CHALLENGE` &&
-        session.challengeParam.trigger
+        !!Number(session.challengeParam.trigger)
       ) {
-        console.log(`question`, session.challengeParam.question);
-        // return Auth.sendCustomChallengeAnswer(session, `nope`)
-        //   .then(user => user)
-        //   .catch((err) => {
-        //     console.error(`Auth.sendCustomChallengeAnswer() error`, err);
-        //     throw new Error(`Incorrect custom challenge answer`);
-        //   });
+        console.log(`trigger custom auth`);
         return new Promise(async (resolve, reject) => {
-          const alert = await this.alertCtrl.create({
-            header: `Challenge Question`,
-            message: `${session.challengeParam.question}?`,
-            inputs: [{
-              placeholder: `Answer`,
-              label: `Answer`,
-              name: `answer`
-            }],
-            backdropDismiss: false,
-            buttons: [{
-              role: `cancel`,
-              text: `Cancel`,
-              handler: () => {
-                reject(new Error(`Cancelled`));
-              }
-            }, {
-              text: `Submit`,
-              handler: async ({ answer }) => {
-                console.log(`answer`, answer);
-                Auth.sendCustomChallengeAnswer(session, answer)
-                  .then(user => resolve(user))
-                  .catch(err => reject(new Error(`Failed custom auth challenge`)));
-              }
-            }]
-          });
-          await alert.present();
-        });
+          const onDismiss = async (event) => {
+            console.log(`openFacialRekognitionModal() onDismiss`, event);
+            if (event?.data?.imageUri) {
+              const imageUri = await this.processImageUri(event.data.imageUri);
+              const base64ImageData = imageUri.replace(this.IMAGE_URI_PREFIX, ``);
+              Auth.sendCustomChallengeAnswer(session, base64ImageData)
+                .then(user => resolve(user))
+                .catch((err) => {
+                  console.error(`Auth.sendCustomChallengeAnswer() error`, err);
+                  reject(new Error(`Failed custom auth challenge`));
+                });
+            } else {
+              console.log(`image not captured`);
+              reject(new Error(`Image not captured`));
+            }
+          };
 
+          const event: any = await this.openFacialRekognitionModal();
+          await onDismiss(event);
+        });
       } else {
         return session;
       }
@@ -97,5 +147,53 @@ export class AppComponent {
       console.log(`Auth.signIn() error`, error);
       throw error;
     });
+  }
+
+  private async openFacialRekognitionModal() {
+    return new Promise(async (resolve) => {
+      const modal: HTMLIonModalElement = await this.modalCtrl.create({
+        component: FacialRekognitionModalComponent,
+        backdropDismiss: false
+      });
+      modal.onDidDismiss().then((event) => {
+        resolve(event);
+      });
+      await modal.present();
+    });
+  }
+
+  private async processImageUri(imageUri: string): Promise<string> {
+    console.log(`processImageUri()`);
+    let file: File = FileUtil.dataUriToFile(imageUri, 'tmpImg.jpg');
+    if (file) {
+      if (file.size > this.MAX_FILE_SIZE) {
+        console.log('File size too large, reducing image quality');
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = () => {
+            const newImageUri = this.reduceImageQuality(img);
+            resolve(this.processImageUri(newImageUri));
+          };
+          img.onerror = (error) => {
+            console.error(`Error loading image`, error);
+          };
+          img.src = imageUri;
+        });
+      } else {
+        return imageUri;
+      }
+    } else {
+      throw new Error(`Invalid image schema`);
+    }
+  }
+
+  private reduceImageQuality(image: HTMLImageElement): string {
+    console.log('reduceImageQuality()');
+    const canvas = document.createElement('canvas');
+    const canvasContext = canvas.getContext('2d');
+    canvas.width = image.width * 0.75;
+    canvas.height = image.height * 0.75;
+    canvasContext?.drawImage(image, 0, 0, canvas.width, canvas.height);
+    return canvas.toDataURL('image/jpeg', 0.5);
   }
 }

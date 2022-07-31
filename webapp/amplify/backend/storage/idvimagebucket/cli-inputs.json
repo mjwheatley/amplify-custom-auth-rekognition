@@ -4,7 +4,11 @@
   "bucketName": "idvimagebucket",
   "storageAccess": "auth",
   "guestAccess": [],
-  "authAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
   "triggerFunction": "S3Trigger0c916c43",
   "groupAccess": {
     "admin": [

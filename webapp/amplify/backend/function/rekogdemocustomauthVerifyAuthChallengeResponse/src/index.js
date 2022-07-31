@@ -49,7 +49,7 @@ var moduleNames = process.env.MODULES ? process.env.MODULES.split(',') : [];
 /**
  * The array of imported modules.
  */
-var modules = moduleNames.map(function (name) { return require("./" + name); });
+var modules = moduleNames.map(function (name) { return require("./".concat(name)); });
 /**
  * This async handler iterates over the given modules and awaits them.
  *

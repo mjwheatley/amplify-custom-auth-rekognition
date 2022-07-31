@@ -31,6 +31,7 @@ type UserInfo @model
   { allow: private, provider: iam, operations: [create, read, update, delete] },
   { allow: groups, groups: ["admin", "poweruser"], operations: [create, read, update, delete] },
   { allow: groups, groups: ["viewer"], operations: [read] }
+  { allow: owner, ownerField: "userid", identityClaim: "sub", operations: [create, read, update, delete] }
 ]) {
   companyid: String! @primaryKey(sortKeyFields: ["userid"]) @index(name: "userInfoByFaceId", sortKeyFields: ["faceid"], queryField: "userInfoByFaceId") @index(name: "userInfoByRegStatus", sortKeyFields: ["registrationstatus"], queryField: "userInfoByRegStatus")
   userid: String!
@@ -100,17 +101,17 @@ type RegisterNewUserResponse {
 }
 
 type LoginUserResponse {
-  Success: Boolean @aws_cognito_user_pools,
-  Message: String @aws_cognito_user_pools,
-  Confidence: Float @aws_cognito_user_pools,
-  CompanyId: String @aws_cognito_user_pools,
-  UserId: String @aws_cognito_user_pools,
-  FirstName: String @aws_cognito_user_pools,
-  LastName: String @aws_cognito_user_pools,
-  DOB: String @aws_cognito_user_pools,
-  RegistrationStatus: String @aws_cognito_user_pools,
-  FaceId: String @aws_cognito_user_pools,
-  FaceImage: String @aws_cognito_user_pools,
+  Success: Boolean @aws_cognito_user_pools @aws_iam,
+  Message: String @aws_cognito_user_pools  @aws_iam,
+  Confidence: Float @aws_cognito_user_pools  @aws_iam,
+  CompanyId: String @aws_cognito_user_pools  @aws_iam,
+  UserId: String @aws_cognito_user_pools  @aws_iam,
+  FirstName: String @aws_cognito_user_pools  @aws_iam,
+  LastName: String @aws_cognito_user_pools  @aws_iam,
+  DOB: String @aws_cognito_user_pools  @aws_iam,
+  RegistrationStatus: String @aws_cognito_user_pools  @aws_iam,
+  FaceId: String @aws_cognito_user_pools  @aws_iam,
+  FaceImage: String @aws_cognito_user_pools  @aws_iam,
 }
 
 type DeleteUserResponse {
@@ -140,7 +141,7 @@ type Query
 {
   listcollections(param: String): [CollectionResponse] @function(name: "idvworkflowfn-${env}") @aws_cognito_user_pools(cognito_groups: ["admin"]),
   describecollection(collectionId: String): DescribeCollectionResponse @function(name: "idvworkflowfn-${env}") @aws_cognito_user_pools(cognito_groups: ["admin"]),
-  loginuser(imageDataBase64: String): LoginUserResponse @function(name: "idvworkflowfn-${env}") @aws_cognito_user_pools,
+  loginuser(imageDataBase64: String): LoginUserResponse @function(name: "idvworkflowfn-${env}") @aws_cognito_user_pools @aws_iam,
   detecttextinidcard(imageDataBase64: String): DetectTextResponse @function(name: "idvworkflowfn-${env}") @aws_cognito_user_pools,
 }
 
@@ -151,5 +152,5 @@ type Mutation
   registernewuser(userInfoAsJson: String): RegisterNewUserResponse @function(name: "idvworkflowfn-${env}") @aws_cognito_user_pools,
   registernewuserwithidcard(userInfoAsJson: String, faceImageDataBase64: String, idImageDataBase64: String): RegisterNewUserResponse @function(name: "idvworkflowfn-${env}") @aws_cognito_user_pools,
   updateexistinguserphoto(userInfoAsJson: String, faceImageDataBase64: String): UpdateUserPhotoResponse @function(name: "idvworkflowfn-${env}") @aws_cognito_user_pools,
-  deleteuser(userInfoAsJson: String): DeleteUserResponse @function(name: "idvworkflowfn-${env}") @aws_cognito_user_pools(cognito_groups: ["admin"]),
+  deleteuser(userInfoAsJson: String): DeleteUserResponse @function(name: "idvworkflowfn-${env}") @aws_cognito_user_pools,
 }

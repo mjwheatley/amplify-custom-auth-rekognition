@@ -8,7 +8,7 @@ import aws_exports from './aws-exports';
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
 
 Amplify.configure(aws_exports);
-Amplify.Logger.LOG_LEVEL = 'DEBUG';
+// Amplify.Logger.LOG_LEVEL = 'DEBUG';
 Auth.configure({
   authenticationFlowType: 'CUSTOM_AUTH'
 });

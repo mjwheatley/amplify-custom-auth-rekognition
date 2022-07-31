@@ -77,8 +77,8 @@ subscription OnDeleteCognitoUser($id: String) {
     updatedAt
   }
 }
-subscription OnCreateUserInfo {
-  onCreateUserInfo {
+subscription OnCreateUserInfo($userid: String) {
+  onCreateUserInfo(userid: $userid) {
     companyid
     userid
     firstname
@@ -92,8 +92,8 @@ subscription OnCreateUserInfo {
     updatedAt
   }
 }
-subscription OnUpdateUserInfo {
-  onUpdateUserInfo {
+subscription OnUpdateUserInfo($userid: String) {
+  onUpdateUserInfo(userid: $userid) {
     companyid
     userid
     firstname
@@ -107,8 +107,8 @@ subscription OnUpdateUserInfo {
     updatedAt
   }
 }
-subscription OnDeleteUserInfo {
-  onDeleteUserInfo {
+subscription OnDeleteUserInfo($userid: String) {
+  onDeleteUserInfo(userid: $userid) {
     companyid
     userid
     firstname

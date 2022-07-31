@@ -1,0 +1,80 @@
+<ion-header [translucent]="true" class="header">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button
+        (click)="dismiss()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Facial Rekognition
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="centered-limited-width">
+    <div
+      *ngIf="showWebcam"
+      class="snapshot ion-margin-top"
+    >
+      <webcam
+        [height]="500"
+        [width]="500"
+        [trigger]="triggerObservable"
+        [allowCameraSwitch]="allowCameraSwitch"
+        [switchCamera]="nextWebcamObservable"
+        [videoOptions]="videoOptions"
+        [imageQuality]="1"
+        (imageCapture)="handleImage($event)"
+        (cameraSwitched)="cameraWasSwitched($event)"
+        (initError)="handleInitError($event)"
+      ></webcam>
+    </div>
+
+    <div
+      *ngIf="webcamImage"
+      class="snapshot ion-margin-top"
+    >
+      <img [src]="webcamImage.imageAsDataUrl"/>
+    </div>
+  </div>
+  <ion-row>
+    <ion-col
+      *ngIf="!webcamImage"
+    >
+      <ion-button
+        size="large"
+        expand="block"
+        color="secondary"
+        (click)="triggerSnapshot()"
+      >
+        Capture
+      </ion-button>
+    </ion-col>
+    <ion-col
+      *ngIf="webcamImage"
+    >
+      <ion-button
+        size="large"
+        fill="outline"
+        expand="block"
+        (click)="retry()"
+      >
+        Retry
+      </ion-button>
+    </ion-col>
+    <ion-col
+      *ngIf="webcamImage"
+    >
+      <ion-button
+        size="large"
+        expand="block"
+        color="primary"
+        (click)="dismiss({imageUri: webcamImage.imageAsDataUrl})"
+      >
+        Submit
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>

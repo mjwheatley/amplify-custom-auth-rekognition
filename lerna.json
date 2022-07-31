@@ -1,0 +1,9 @@
+{
+  "packages": [
+    "admin",
+    "webapp",
+    "webapp/amplify/backend/function/*",
+    "webapp/amplify/backend/function/*/src"
+  ],
+  "version": "0.0.0"
+}

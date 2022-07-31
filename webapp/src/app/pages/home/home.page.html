@@ -1,28 +1,57 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-title>
       Home
     </ion-title>
+    <ion-buttons
+      slot="end">
+      <ion-button
+        (click)="signOut()"
+      >
+        Sign Out
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Home</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <div *ngIf="user">
-      Welcome <strong>{{user.given_name}}</strong>
-      <div>
+<ion-content>
+  <div class="centered-limited-width ion-text-center">
+    <ion-card-header>
+      <ion-card-subtitle>
+        Welcome
+      </ion-card-subtitle>
+      <ion-card-title>
+        {{user.given_name}}&nbsp;{{user.family_name}}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div
+        *ngIf="!userInfo"
+      >
         <ion-button
-          (click)="signOut()"
+
+          size="large"
+          expand="block"
+          (click)="enrollFace()"
         >
-          Sign Out
+          Enable Face MFA
         </ion-button>
       </div>
-    </div>
+      <div
+        *ngIf="userInfo"
+      >
+        <ion-img [src]="signedURL"></ion-img>
+
+        <ion-button
+          class="ion-margin-top"
+          size="large"
+          expand="block"
+          fill="outline"
+          (click)="unenrollFace()"
+        >
+          Disable Face MFA
+        </ion-button>
+      </div>
+    </ion-card-content>
   </div>
 </ion-content>

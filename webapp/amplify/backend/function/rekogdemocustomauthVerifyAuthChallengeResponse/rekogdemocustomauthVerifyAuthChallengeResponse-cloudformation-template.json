@@ -43,6 +43,18 @@
     },
     "s3Key": {
       "Type": "String"
+    },
+    "apirekogdemoGraphQLGraphQLAPIIdOutput": {
+      "Type": "String",
+      "Default": "apirekogdemoGraphQLGraphQLAPIIdOutput"
+    },
+    "apirekogdemoGraphQLGraphQLAPIEndpointOutput": {
+      "Type": "String",
+      "Default": "apirekogdemoGraphQLGraphQLAPIEndpointOutput"
+    },
+    "apirekogdemoGraphQLGraphQLAPIKeyOutput": {
+      "Type": "String",
+      "Default": "apirekogdemoGraphQLGraphQLAPIKeyOutput"
     }
   },
   "Conditions": {
@@ -95,6 +107,15 @@
             },
             "RECAPTCHASECRET": {
               "Ref": "RECAPTCHASECRET"
+            },
+            "API_REKOGDEMOGRAPHQL_GRAPHQLAPIIDOUTPUT": {
+              "Ref": "apirekogdemoGraphQLGraphQLAPIIdOutput"
+            },
+            "API_REKOGDEMOGRAPHQL_GRAPHQLAPIENDPOINTOUTPUT": {
+              "Ref": "apirekogdemoGraphQLGraphQLAPIEndpointOutput"
+            },
+            "API_REKOGDEMOGRAPHQL_GRAPHQLAPIKEYOUTPUT": {
+              "Ref": "apirekogdemoGraphQLGraphQLAPIKeyOutput"
             }
           }
         },
@@ -193,6 +214,53 @@
                   }
                 ]
               }
+            }
+          ]
+        }
+      }
+    },
+    "AmplifyResourcesPolicy": {
+      "DependsOn": [
+        "LambdaExecutionRole"
+      ],
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "amplify-lambda-execution-policy",
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "appsync:GraphQL"
+              ],
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:appsync:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":apis/",
+                      {
+                        "Ref": "apirekogdemoGraphQLGraphQLAPIIdOutput"
+                      },
+                      "/types/Query/*"
+                    ]
+                  ]
+                }
+              ]
             }
           ]
         }

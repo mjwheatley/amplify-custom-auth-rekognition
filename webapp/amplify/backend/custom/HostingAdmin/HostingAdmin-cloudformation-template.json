@@ -1,0 +1,244 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"9.1.0\",\"stackType\":\"custom-customCloudformation\",\"metadata\":{}}",
+  "Parameters": {
+    "env": {
+      "Type": "String"
+    },
+    "hostedZoneId": {
+      "Type": "String"
+    },
+    "domainName": {
+      "Type": "String"
+    },
+    "subdomainName": {
+      "Type": "String"
+    },
+    "certificateArn": {
+      "Description": "AWS us-east-1 certificate ARN for Edge type custom API Gateway domain name.",
+      "Type": "String"
+    },
+    "PriceClass": {
+      "Type": "String",
+      "Description": "The CloudFront distribution price class",
+      "Default": "PriceClass_All",
+      "AllowedValues": [
+        "PriceClass_100",
+        "PriceClass_200",
+        "PriceClass_All"
+      ]
+    }
+  },
+  "Resources": {
+    "route53RecordSet": {
+      "Type": "AWS::Route53::RecordSet",
+      "Properties": {
+        "AliasTarget": {
+          "DNSName": {
+            "Fn::GetAtt": [
+              "CloudFrontDistribution",
+              "DomainName"
+            ]
+          },
+          "HostedZoneId": "Z2FDTNDATAQYW2"
+        },
+        "HostedZoneId": {
+          "Ref": "hostedZoneId"
+        },
+        "Name": {
+          "Fn::Sub": "${subdomainName}.${domainName}"
+        },
+        "SetIdentifier": {
+          "Fn::Sub": "${subdomainName}"
+        },
+        "Type": "A",
+        "Weight": 0
+      }
+    },
+    "CloudFrontDistribution": {
+      "Type": "AWS::CloudFront::Distribution",
+      "Properties": {
+        "DistributionConfig": {
+          "Aliases": [
+            {
+              "Fn::Sub": "${subdomainName}.${domainName}"
+            }
+          ],
+          "DefaultCacheBehavior": {
+            "AllowedMethods": [
+              "GET",
+              "HEAD",
+              "OPTIONS"
+            ],
+            "CachedMethods": [
+              "GET",
+              "HEAD",
+              "OPTIONS"
+            ],
+            "Compress": true,
+            "ForwardedValues": {
+              "QueryString": true
+            },
+            "TargetOriginId": "the-s3-bucket",
+            "ViewerProtocolPolicy": "redirect-to-https"
+          },
+          "DefaultRootObject": "index.html",
+          "CustomErrorResponses": [
+            {
+              "ErrorCachingMinTTL": 300,
+              "ErrorCode": 403,
+              "ResponseCode": 200,
+              "ResponsePagePath": "/index.html"
+            },
+            {
+              "ErrorCachingMinTTL": 300,
+              "ErrorCode": 404,
+              "ResponseCode": 200,
+              "ResponsePagePath": "/index.html"
+            }
+          ],
+          "Enabled": true,
+          "HttpVersion": "http2",
+          "Origins": [
+            {
+              "DomainName": {
+                "Fn::Join": [
+                  "",
+                  [
+                    {
+                      "Ref": "Bucket"
+                    },
+                    ".s3.amazonaws.com"
+                  ]
+                ]
+              },
+              "Id": "the-s3-bucket",
+              "S3OriginConfig": {
+                "OriginAccessIdentity": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "origin-access-identity/cloudfront/",
+                      {
+                        "Ref": "CloudFrontOriginAccessIdentity"
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "PriceClass": {
+            "Ref": "PriceClass"
+          },
+          "ViewerCertificate": {
+            "AcmCertificateArn": {
+              "Ref": "certificateArn"
+            },
+            "MinimumProtocolVersion": "TLSv1.2_2019",
+            "SslSupportMethod": "sni-only"
+          }
+        },
+        "Tags": [
+          {
+            "Key": "Domain",
+            "Value": {
+              "Fn::Sub": "${subdomainName}.${domainName}"
+            }
+          }
+        ]
+      }
+    },
+    "CloudFrontOriginAccessIdentity": {
+      "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
+      "Properties": {
+        "CloudFrontOriginAccessIdentityConfig": {
+          "Comment": {
+            "Fn::Sub": "CloudFront OAI for ${subdomainName}.${domainName}"
+          }
+        }
+      }
+    },
+    "Bucket": {
+      "Type": "AWS::S3::Bucket",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "AES256"
+              }
+            }
+          ]
+        },
+        "BucketName": {
+          "Fn::Sub": "${subdomainName}.${domainName}"
+        },
+        "Tags": [
+          {
+            "Key": "Domain",
+            "Value": {
+              "Fn::Sub": "${subdomainName}.${domainName}"
+            }
+          }
+        ]
+      }
+    },
+    "BucketPolicy": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {
+        "Bucket": {
+          "Ref": "Bucket"
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "s3:GetObject"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:s3:::",
+                    {
+                      "Ref": "Bucket"
+                    },
+                    "/*"
+                  ]
+                ]
+              },
+              "Principal": {
+                "CanonicalUser": {
+                  "Fn::GetAtt": [
+                    "CloudFrontOriginAccessIdentity",
+                    "S3CanonicalUserId"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "DomainName": {
+      "Value": {
+        "Ref": "route53RecordSet"
+      }
+    },
+    "S3BucketName": {
+      "Value": {
+        "Ref": "Bucket"
+      }
+    },
+    "CloudFrontDistribution": {
+      "Value": {
+        "Ref": "CloudFrontDistribution"
+      }
+    }
+  }
+}

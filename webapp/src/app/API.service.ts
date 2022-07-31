@@ -2286,12 +2286,13 @@ export class APIService {
     >;
   }
 
-  OnCreateUserInfoListener: Observable<
+  OnCreateUserInfoListener(
+    userid?: string
+  ): Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateUserInfo">>
-  > = API.graphql(
-    graphqlOperation(
-      `subscription OnCreateUserInfo {
-        onCreateUserInfo {
+  > {
+    const statement = `subscription OnCreateUserInfo($userid: String) {
+        onCreateUserInfo(userid: $userid) {
           __typename
           companyid
           userid
@@ -2305,18 +2306,25 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`
-    )
-  ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateUserInfo">>
-  >;
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (userid) {
+      gqlAPIServiceArguments.userid = userid;
+    }
+    return API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    ) as Observable<
+      SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateUserInfo">>
+    >;
+  }
 
-  OnUpdateUserInfoListener: Observable<
+  OnUpdateUserInfoListener(
+    userid?: string
+  ): Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateUserInfo">>
-  > = API.graphql(
-    graphqlOperation(
-      `subscription OnUpdateUserInfo {
-        onUpdateUserInfo {
+  > {
+    const statement = `subscription OnUpdateUserInfo($userid: String) {
+        onUpdateUserInfo(userid: $userid) {
           __typename
           companyid
           userid
@@ -2330,18 +2338,25 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`
-    )
-  ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateUserInfo">>
-  >;
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (userid) {
+      gqlAPIServiceArguments.userid = userid;
+    }
+    return API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    ) as Observable<
+      SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateUserInfo">>
+    >;
+  }
 
-  OnDeleteUserInfoListener: Observable<
+  OnDeleteUserInfoListener(
+    userid?: string
+  ): Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteUserInfo">>
-  > = API.graphql(
-    graphqlOperation(
-      `subscription OnDeleteUserInfo {
-        onDeleteUserInfo {
+  > {
+    const statement = `subscription OnDeleteUserInfo($userid: String) {
+        onDeleteUserInfo(userid: $userid) {
           __typename
           companyid
           userid
@@ -2355,11 +2370,17 @@ export class APIService {
           createdAt
           updatedAt
         }
-      }`
-    )
-  ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteUserInfo">>
-  >;
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (userid) {
+      gqlAPIServiceArguments.userid = userid;
+    }
+    return API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    ) as Observable<
+      SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteUserInfo">>
+    >;
+  }
 
   OnCreateConfigEntryListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateConfigEntry">>

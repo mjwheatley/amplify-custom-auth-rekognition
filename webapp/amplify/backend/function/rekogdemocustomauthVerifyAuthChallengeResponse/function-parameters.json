@@ -13,5 +13,12 @@
   "triggerEventPath": "VerifyAuthChallengeResponse.event.json",
   "roleName": "rekogdemocustomauthVerifyAuthChallengeResponse",
   "skipEdit": true,
-  "enableCors": false
+  "enableCors": false,
+  "permissions": {
+    "api": {
+      "rekogdemoGraphQL": [
+        "Query"
+      ]
+    }
+  }
 }

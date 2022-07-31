@@ -13,7 +13,7 @@
     "amplify:rekogdemocustomauthPostConfirmation": "cd amplify/backend/function/rekogdemocustomauthPostConfirmation && npm i && tsc -p ./tsconfig.json && cd src && npm i && cd -",
     "amplify:rekogdemocustomauthDefineAuthChallenge": "cd amplify/backend/function/rekogdemocustomauthDefineAuthChallenge && npm i && tsc -p ./tsconfig.json && cd src && npm i && cd -",
     "amplify:rekogdemocustomauthCreateAuthChallenge": "cd amplify/backend/function/rekogdemocustomauthCreateAuthChallenge && npm i && tsc -p ./tsconfig.json && cd src && npm i && cd -",
-    "amplify:rekogdemocustomauthVerifyAuthChallenge": "cd amplify/backend/function/rekogdemocustomauthVerifyAuthChallenge && npm i && tsc -p ./tsconfig.json && cd src && npm i && cd -"
+    "amplify:rekogdemocustomauthVerifyAuthChallengeResponse": "cd amplify/backend/function/rekogdemocustomauthVerifyAuthChallengeResponse && npm i && tsc -p ./tsconfig.json && cd src && npm i && cd -"
   },
   "private": true,
   "dependencies": {
@@ -34,6 +34,7 @@
     "@ionic/pwa-elements": "^3.1.1",
     "@ionic/storage": "^3.0.4",
     "aws-amplify": "^4.3.27",
+    "ngx-webcam": "^0.4.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"

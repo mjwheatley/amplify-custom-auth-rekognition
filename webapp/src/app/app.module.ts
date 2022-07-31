@@ -7,12 +7,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 import { SessionService } from './services';
 import { Storage } from '@ionic/storage';
+import { FacialRekognitionModalComponent } from './modals';
+import { WebcamModule } from 'ngx-webcam';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    FacialRekognitionModalComponent
+  ],
   imports: [
     BrowserModule,
     AmplifyAuthenticatorModule,
+    WebcamModule,
     IonicModule.forRoot(),
     AppRoutingModule
   ],

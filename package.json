@@ -1,0 +1,35 @@
+{
+  "name": "custom-auth-rekognition-demo",
+  "version": "1.0.0",
+  "description": "AWS Amplify project demonstrating Cognito custom authentication using AWS Rekognition",
+  "main": "index.js",
+  "keywords": [
+    "AWS",
+    "Amplify",
+    "Cognito",
+    "Rekognition",
+    "MFA",
+    "authentication"
+  ],
+  "author": "mjwheatley",
+  "license": "ISC",
+  "scripts": {
+    "aws-exports": "lerna run aws-exports",
+    "deploy:hosted": "lerna run deploy",
+    "deploy:s3": "run-s deploy:s3Bucket deploy:s3Tagging",
+    "deploy:s3Bucket": "aws s3 mb s3://${applicationPrefix}-sam-stack-${ENV:-prod}-${REGION:-us-east-1} --region ${REGION:-us-east-1}",
+    "deploy:s3Tagging": "aws s3api put-bucket-tagging --bucket ${applicationPrefix}-sam-stack-${ENV:-prod}-${REGION:-us-east-1} --tagging file://aws-sam/tagging.json --region ${REGION:-us-east-1}",
+    "deploy:providers": "run-p deploy:provider:*",
+    "deploy:provider:certificate": "git clone https://github.com/binxio/cfn-certificate-provider.git && cd cfn-certificate-provider && aws cloudformation deploy --capabilities CAPABILITY_IAM --stack-name account-cfn-certificate-provider --template-file cloudformation/cfn-resource-provider.yaml --tags $(cat ../aws-sam/tagging.json | fx 'this.TagSet.map(x=>`${x.Key}=${x.Value}`).join(` `)') --region ${REGION:-us-east-1} && cd .. && rm -rf cfn-certificate-provider",
+    "deploy:sam:paramOverrides": "node aws-sam/environment/sam-parameter-overrides.js",
+    "deploy:stack:edge-cert": ". aws-sam/environment/edge-cert.env.sh && run-s deploy:sam:paramOverrides deploy:edge-cert:build deploy:edge-cert:deploy",
+    "deploy:edge-cert:build": "sam build -b .aws-sam/edge-cert -t aws-sam/edge-cert.json",
+    "deploy:edge-cert:deploy": "sam deploy --template-file .aws-sam/edge-cert/template.yaml --s3-bucket ${applicationPrefix}-sam-stack-${ENV}-${REGION} --stack-name ${applicationPrefix}-cert-sam-stack --parameter-overrides $(cat aws-sam/environment/sam-parameter-overrides.json | fx 'Object.keys(this).map(k=>`${k}=${this[k]}`).join(` `)') --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND --tags $(cat aws-sam/tagging.json | fx 'this.TagSet.map(x=>`${x.Key}=${x.Value}`).join(` `)') --region us-east-1"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "fx": "^19.0.1",
+    "lerna": "^4.0.0",
+    "npm-run-all": "^4.1.5"
+  }
+}

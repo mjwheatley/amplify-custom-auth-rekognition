@@ -76,5 +76,12 @@ export type AmplifyDependentResourcesAttributes = {
             "BucketName": "string",
             "Region": "string"
         }
+    },
+    "custom": {
+        "HostingAdmin": {
+            "DomainName": "string",
+            "S3BucketName": "string",
+            "CloudFrontDistribution": "string"
+        }
     }
 }

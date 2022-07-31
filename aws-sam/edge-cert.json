@@ -1,0 +1,95 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Transform": "AWS::Serverless-2016-10-31",
+  "Description": "ACM resource",
+  "Parameters": {
+    "applicationPrefix": {
+      "Type": "String",
+      "Description": "Application prefix for stack resource names."
+    },
+    "domainName": {
+      "Type": "String"
+    },
+    "hostedZoneId": {
+      "Type": "String"
+    }
+  },
+  "Resources": {
+    "Certificate": {
+      "Type": "Custom::Certificate",
+      "Properties": {
+        "DomainName": {
+          "Fn::Sub": "${applicationPrefix}.${domainName}"
+        },
+        "ValidationMethod": "DNS",
+        "ServiceToken": {
+          "Fn::Sub": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:binxio-cfn-certificate-provider"
+        }
+      }
+    },
+    "IssuedCertificate": {
+      "Type": "Custom::IssuedCertificate",
+      "Properties": {
+        "CertificateArn": {
+          "Ref": "Certificate"
+        },
+        "ServiceToken": {
+          "Fn::Sub": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:binxio-cfn-certificate-provider"
+        }
+      }
+    },
+    "CertificateDNSRecord": {
+      "Type": "Custom::CertificateDNSRecord",
+      "Properties": {
+        "CertificateArn": {
+          "Ref": "Certificate"
+        },
+        "DomainName": {
+          "Fn::Sub": "${applicationPrefix}.${domainName}"
+        },
+        "ServiceToken": {
+          "Fn::Sub": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:binxio-cfn-certificate-provider"
+        }
+      }
+    },
+    "DomainValidationRecord": {
+      "Type": "AWS::Route53::RecordSetGroup",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "hostedZoneId"
+        },
+        "RecordSets": [
+          {
+            "Name": {
+              "Fn::GetAtt": [
+                "CertificateDNSRecord",
+                "Name"
+              ]
+            },
+            "Type": {
+              "Fn::GetAtt": [
+                "CertificateDNSRecord",
+                "Type"
+              ]
+            },
+            "TTL": 60,
+            "Weight": 1,
+            "SetIdentifier": {
+              "Ref": "Certificate"
+            },
+            "ResourceRecords": [
+              {
+                "Fn::GetAtt": [
+                  "CertificateDNSRecord",
+                  "Value"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "Outputs": {
+  }
+}

@@ -2,6 +2,6 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ['idvimagebucket130330-dev.s3.us-west-2.amazonaws.com'],
+    domains: ['idvimagebucket131209-prod.s3.us-east-1.amazonaws.com'],
   },
 }

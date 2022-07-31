@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "aws-exports": "cp ../webapp/src/aws-exports.js src/",
+    "predeploy": "npm run build",
+    "deploy": ". ../aws-sam/environment/admin.${AMPLIFY_ENV}.env.sh && aws s3 sync www/ s3://${subdomainName}.${domainName} --delete --region us-east-1",
+    "postdeploy": ". ../aws-sam/environment/admin.${AMPLIFY_ENV}.env.sh && aws cloudfront create-invalidation --distribution-id ${CLOUDFRONT_DISTRIBUTION_ID} --paths '/*' --region us-east-1"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^1.2.11",
