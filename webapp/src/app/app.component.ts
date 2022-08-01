@@ -91,6 +91,7 @@ export class AppComponent implements OnInit {
           break;
         case 'signOut':
           console.log('user signed out');
+          await this.session.updateUser({});
           break;
         case 'signIn_failure':
           console.log('user sign in failed');
