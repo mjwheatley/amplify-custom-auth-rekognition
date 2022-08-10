@@ -25,7 +25,10 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 @import '~@aws-amplify/ui-angular/theme.css';
-
+/* Important fix for body min-height to correct issue caused by @aws-amplify/ui-angular/theme.css*/
+body {
+  min-height: 100%;
+}
 
 .centered-limited-width {
   max-width: 750px;
